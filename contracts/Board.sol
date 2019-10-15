@@ -3,16 +3,17 @@ pragma experimental ABIEncoderV2;
 
 contract Board {
     struct Contribution {
+        string sentence;
         address payable contributer;
         uint value;
+        uint id;
     }
     
-    string[] sentences;
     Contribution[] Contributions;
     
-    mapping(string => Contribution) sentence_to_contribution;
-    
     address owner;
+    uint index;
+    string[] sentences;
     
     modifier onlyOwner() {
         require(msg.sender == owner);
@@ -24,26 +25,32 @@ contract Board {
     }
     
     function contribute(string memory _sentence) public {
-        sentences.push(_sentence);
-        Contribution memory new_contribution = Contribution(msg.sender, 0);
+        Contribution memory new_contribution = Contribution(_sentence,msg.sender, 0, index);
         Contributions.push(new_contribution);
-        sentence_to_contribution[_sentence] = new_contribution;
+        index++;
     }
     
-    function getSentence() public view  returns(string[] memory) {
+    function getSentence() public returns(string[] memory) {
+        for(uint i = 0; i< Contributions.length; i++) {
+            sentences.push(Contributions[i].sentence);
+        }
         return sentences;
     }
     
-    function donate(string memory _sentence) public payable {
-        sentence_to_contribution[_sentence].contributer.transfer(msg.value);
-        sentence_to_contribution[_sentence].value += msg.value;
+    function donate(uint _index) public payable {
+        Contributions[_index].contributer.transfer(msg.value);
+        Contributions[_index].value += msg.value;
     }
     
-    function getValue(string memory _sentence) public view returns(uint) {
-        return sentence_to_contribution[_sentence].value;
+    function getValue(uint _index) public view returns(uint) {
+        return Contributions[_index].value;
     }
     
-    function getDetail(string memory _sentence) public view returns(Contribution memory) {
-        return sentence_to_contribution[_sentence];
+    function getAddress(uint _index) public view returns(address) {
+        return Contributions[_index].contributer;
+    }
+    
+    function getContributes() public view returns(Contribution[] memory) {
+        return Contributions;
     }
 }

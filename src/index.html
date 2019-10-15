@@ -1,9 +1,24 @@
 <!DOCTYPE html>
+<html>
 
 <head>
-
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body>
+<body style="margin: 0; background: #4a4a4a; text-align: center">
+    <header style="font-size: 30px; margin: 20px; color:white;">
+        掲示板
+    </header>
+    <div id="contributions"
+        style="width:80%; height: 500px; background:white;margin: 0 auto; overflow: scroll; border-radius:10px">
 
+    </div>
+    <div style="margin-top: 10px">
+        <input id="text_area" type="text" name="name" size="30">
+        <button id="contribute_btn" onclick="contribute()">送信</button>
+    </div>
+    <button id="refresh" onclick="refresh()" type="submit">更新</button>
+    <script src="main.js"></script>
 </body>
+
+</html>
