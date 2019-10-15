@@ -2,7 +2,7 @@ import "babel-polyfill";
 import Web3 from "web3";
 import Board from '../build/contracts/Board.json';
 
-const smartContractAddress = "0x9cC8f00e54BB2F63662847D06cd20F04cF355B39";
+const smartContractAddress = "0x0AA6e322f52C0aE5999BcC5b210c93e4C8d63D2E";
 let myAccount;
 let web3;
 let contractInstance;
@@ -33,15 +33,14 @@ window.contribute = async () => {
 
 window.refresh = async () => {
     try {
-        let contributes = await contractInstance.methods.getSentence().call();
-
-        contributes.reverse().forEach(function (contribute) {
-            // var div = document.createElement('div');
-            // div.classList.add('contribution');
-            // div.innerText = "> " + contribute[0];
-            // document.getElementById("contributions").appendChild(div);
-            console.log("きてる");
-        });
+        await contractInstance.methods.getContributes().call();
+        // contributes.reverse().forEach(function (contribute) {
+        //     // var div = document.createElement('div');
+        //     // div.classList.add('contribution');
+        //     // div.innerText = "> " + contribute[0];
+        //     // document.getElementById("contributions").appendChild(div);
+        //     console.log("きてる");
+        // });
     } catch (err) {
         console.log(err);
     }

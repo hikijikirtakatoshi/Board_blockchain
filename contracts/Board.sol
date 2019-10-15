@@ -31,7 +31,7 @@ contract Board {
     }
     
     function getSentence() public returns(string[] memory) {
-        for(uint i = 0; i< Contributions.length; i++) {
+        for(uint i = 0; i < Contributions.length; i++) {
             sentences.push(Contributions[i].sentence);
         }
         return sentences;
